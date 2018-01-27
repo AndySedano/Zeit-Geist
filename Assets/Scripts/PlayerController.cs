@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public void Move(Vector3 _velocity)
     {
         velocity = _velocity;
-        float quickangle = (Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg) - 180;
+        float quickangle = (Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg) - 270f;
         if (velocity.x!=0f || velocity.z!=0f)
         {
             angle = quickangle;
