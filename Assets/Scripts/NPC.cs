@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour {
 
-	private int estado;	//0-Normal, 1-Poseido
+	private int estado;	//0-Normal, 1-En Posesion, 2-PoseidoP1, 3-PoseidoP2
 	private int trait;
 
 	// Use this for initialization
@@ -16,20 +16,68 @@ public class NPC : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Translate (Vector3.forward * 0.3f);
+		if(estado == 0){
+			transform.Translate (Vector3.forward * 0.3f);
+		}
+
+//		else if (estado == 2 || estado == 3) {
+//			transform.Translate (Vector3.forward * 0.5f);
+//		}
 	}
 
-	//Para chocar con otros NPCS
-	private void OnTriggerEnter(Collider hit){
-		if(hit.tag.Equals("NPC")){
-			//cambiar direccion
-		} else if(hit.tag.Equals("Player")) {
-			//Hacer cosas de player
+	//Para detectar si choco con algo que no sea player
+	private void OnCollisionEnter(Collision hit){
+		transform.Rotate (Vector3.up, transform.rotation.y + 180);
+	}
+
+	//Mensaje que manda el player cuando entra a su trigger
+	private void inPosession(bool isPlayer1){
+		
+		estado = 1;//En Posesion
+
+		switch (estado) {
+
+		case(0):	//Normal
+			if (isPlayer1) {
+				//Minigame facil al player1
+			} else {
+				//Minigame facil al player2
+			}
+			break;
+
+		case(2):	//Poseido por player 1
+			if (isPlayer1) {
+				//No hacer nada
+				estado = 2;
+			} else {
+				//Minigame dificil al player2
+			}
+			break;
+
+		case(3):	//Poseido por player 2
+			if (isPlayer1) {
+				//Minigame dificil al player 1
+			} else {
+				//N
+				estado = 2;
+			}
+			break;
+
+		default:
+			//Crashear
+			break;
 		}
 	}
 
-	//Para detectar si choco con el player
-	private void OnCollisionEnter(Collision hit){
+	private void possessionSuccesful(bool isPlayer1){
+		if (isPlayer1) {
+			GameManager.instance.player1Score += 1;
+		} else {
+			GameManager.instance.player1Score += 2;
+		}
+	}
 
+	private void possessionFailed(bool isPlayer1){
+		//Checar traits
 	}
 }
