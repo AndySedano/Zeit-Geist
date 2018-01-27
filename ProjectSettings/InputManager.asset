@@ -6,7 +6,7 @@ InputManager:
   serializedVersion: 2
   m_Axes:
   - serializedVersion: 3
-    m_Name: Horizontal
+    m_Name: HorizontalPlayer2
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: left
@@ -118,7 +118,7 @@ InputManager:
     axis: 1
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Vertical
+    m_Name: VerticalPlayer2
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: down
