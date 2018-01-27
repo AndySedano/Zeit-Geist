@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour {
 	public int player1Score = 0;
 	public int player2Score = 0;
 	public float timeLeft;
-	public GameObject player1;
-	public GameObject player2;
+	public Player player1;
+	public Player player2;
 
 	private bool inGame = false;
 

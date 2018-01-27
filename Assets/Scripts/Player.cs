@@ -29,9 +29,11 @@ public class Player : MonoBehaviour {
     public Image shadow;
     public Image buttonHint;
 
-    public float timer;
+    float timer;
 
-    public float tapAmount;
+    float tapAmount;
+
+    float totalTaps; 
 
     float buttonHintAlpha;
     int buttonHintAlphaDirection;
@@ -82,32 +84,92 @@ public class Player : MonoBehaviour {
             controller.Move(Vector3.zero);
         }
 
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////Pllayer1 Possession's Controls//////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // to begin the process of possession
         if ( isPlayer1 && Input.GetButtonDown("Possess1") && canPossess)
         {
-            StartPossession();
+            npcTarget.SendMessage("inPosession",isPlayer1);
         }
 
         // to begin the process of possession for player1
         if (isPlayer1 && possessing && timer >0f && tapAmount >0)
         {
+                // controll the timer
                 timer -= Time.deltaTime;
+            // only in this window of time the input of the possession button is read
                 if (Input.GetButtonDown("Possess1"))
                 {
                     tapAmount--;
-                    shadow.fillAmount = tapAmount / 10;
+                    shadow.fillAmount = tapAmount / totalTaps;
                 }
             
         }else if (isPlayer1 && possessing && (timer <= 0f || tapAmount<=0))
-        {
-            if (tapAmount<=0)
+        {// when time is over or when the tap acount is reached the process finish
+            if (tapAmount <= 0)
             {
-                //npc is possess
+                // only if the player reach the taps before the time runs out 
+                //the npc is possessed
+                npcTarget.SendMessage("possessionSuccesful", isPlayer1);
             }
+            else
+            {
+                npcTarget.SendMessage("possessionFailed");
+            }
+            //end the possession process
             EndPossession();
         }
 
-        //hit if you can possess
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////Pllayer2 Possession's Controls//////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // to begin the process of possession
+        if (!isPlayer1 && Input.GetButtonDown("Possess2") && canPossess)
+        {
+            npcTarget.SendMessage("inPosession", isPlayer1);
+        }
+
+        // to begin the process of possession for player1
+        if (!isPlayer1 && possessing && timer > 0f && tapAmount > 0)
+        {
+            // controll the timer
+            timer -= Time.deltaTime;
+            // only in this window of time the input of the possession button is read
+            if (Input.GetButtonDown("Possess2"))
+            {
+                tapAmount--;
+                shadow.fillAmount = tapAmount / totalTaps;
+            }
+
+        }
+        else if (!isPlayer1 && possessing && (timer <= 0f || tapAmount <= 0))
+        {// when time ran out or the player reched the tap acount the process finish
+            if (tapAmount <= 0)
+            {
+                // only if the player reach the taps before the time runs out 
+                //the npc is possessed
+                npcTarget.SendMessage("possessionSuccesful", isPlayer1);
+            }else
+            {
+                npcTarget.SendMessage("possessionFailed");
+            }
+            //end the possession process
+            EndPossession();
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        //hint if you can possess
         //This can be used no matter which player is
         if ((buttonHintAlpha>0 && buttonHintAlphaDirection==-1) || (buttonHintAlpha <1 && buttonHintAlphaDirection == 1))
         {
@@ -118,15 +180,17 @@ public class Player : MonoBehaviour {
         
 
     }
-
-    void StartPossession()
+    //called by the exterior to know how many time the player need to tap
+    //& the time 
+    public void StartPossession(int taps, float time)
     {
         canMove = false;
         canPossess = false;
         possessing = true;
         shadow.fillAmount = 1f;
-        timer = 1.5f;
-        tapAmount = 10f;
+        timer = time;
+        tapAmount = taps;
+        totalTaps = taps;
     }
 
     void EndPossession()
@@ -147,7 +211,7 @@ public class Player : MonoBehaviour {
 
             canPossess = true;
             npcTarget = other.gameObject;
-            print("Lol");
+            //print("Enter");
         }
     }
 
@@ -155,11 +219,12 @@ public class Player : MonoBehaviour {
     {
         if (other.CompareTag("NPC") && canPossess)
         {
-            npcTarget = null;
+            //npcTarget = null;
 
             // hide the possession hint
             buttonHintAlphaDirection = -1;
             canPossess = false;
+            //print("out");
         }
     }
 
