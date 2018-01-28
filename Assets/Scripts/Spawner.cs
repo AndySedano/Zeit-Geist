@@ -20,8 +20,8 @@ public class Spawner : MonoBehaviour {
 
 
     // Use this for initialization
-<<<<<<< HEAD
-    void SpawnNpc () {
+
+    public void SpawnNpc () {
 
         if (NpcHolder!=null)
         {
@@ -29,9 +29,7 @@ public class Spawner : MonoBehaviour {
         }
         NpcHolder = new GameObject("NpcHolder");
 
-=======
-    public void SpawnNpc () {
->>>>>>> origin/master
+
         currentBigRoom = 0;
         currentRoom1 = 0;
         currentRoom2 = 0;
