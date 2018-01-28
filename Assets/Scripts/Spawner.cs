@@ -16,7 +16,7 @@ public class Spawner : MonoBehaviour {
     int currentRoom2;
 
     // Use this for initialization
-    void SpawnNpc () {
+    public void SpawnNpc () {
         currentBigRoom = 0;
         currentRoom1 = 0;
         currentRoom2 = 0;

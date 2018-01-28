@@ -62,7 +62,7 @@ public class Player : MonoBehaviour {
     void Update()
     {
         //first see if the player can move
-        if (canMove) {
+		if (canMove && GameManager.instance.inGame) {
             //now check which player this code is controlling
             //same code different input
             if (isPlayer1)
