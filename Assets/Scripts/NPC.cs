@@ -9,9 +9,21 @@ public class NPC : MonoBehaviour {
 	private int trait; //0-No Trait, 1- NonBeliver, 2-frightened, 
     private int nonbeliverTries;
     Collider coll;
+    Animator anim;
+
+    public Material[] materials;// materiasl of the ghost that posses the npc
+
+    public Renderer[] renderList;
 
     // Use this for initialization
     void Start () {
+        if (transform.position.y>1.5)
+        {
+            Object.Destroy(gameObject);
+        }
+
+        //control of the animations
+        anim = GetComponent<Animator>();
 
 		estado = 0;// current state
 
@@ -31,10 +43,7 @@ public class NPC : MonoBehaviour {
 		if(estado != 1 && estado!=4){
 			transform.Translate (Vector3.forward * 0.05f);
 		}
-
-//		else if (estado == 2 || estado == 3) {
-//			transform.Translate (Vector3.forward * 0.5f);
-//		}
+        
 	}
 
     //Para detectar si choco con algo que no sea player
@@ -50,7 +59,7 @@ public class NPC : MonoBehaviour {
         //estado = 1;//En Posesion
         //the case cero is the normal amount of taps needed to 
         //possess
-        int taps2Possess=5;
+        int taps2Possess=3;
         float time2Possess = 1.25f;
 
 		if((isPlayer1 && estado==3)||(!isPlayer1 && estado == 2))
@@ -59,8 +68,12 @@ public class NPC : MonoBehaviour {
             time2Possess = time2Possess * 0.75f;
         }
 
-        prevState = estado;// save the prev state in case the player fails the minigame
-        estado = 1;//curren state is being possess
+        if (prevState!=4)
+        {
+            prevState = estado;// save the prev state in case the player fails the minigame
+            estado = 1;//curren state is being possess
+        }
+        
 
         switch (trait)
         {
@@ -68,9 +81,21 @@ public class NPC : MonoBehaviour {
                     time2Possess = time2Possess * 0.75f;
                 break;
             case (2)://frightened
-                if ((!isPlayer1 && estado==2) || (isPlayer1 && estado == 3))
+                if ((!isPlayer1 && prevState == 2) || (isPlayer1 && prevState == 3))
                 {
+                    //if was possess by the player 1
+                    if (prevState == 2)
+                    {
+                        GameManager.instance.player1Score -= 1;
+                    }
+                    else
+                    {
+                        GameManager.instance.player2Score -= 1;
+                    }
+                    gameObject.tag = "NPCFainted";//So the player knows it can't possess this npc anymore
+                    SwitchMaterial(0);
                     estado = 4;
+                    anim.SetInteger("Estado", 4);
                 }
                 break;
         }
@@ -86,17 +111,23 @@ public class NPC : MonoBehaviour {
                 GameManager.instance.player2.StartPossession(taps2Possess, time2Possess);
             }
         }
+
+        // and finally change the State at the animation
+        anim.SetInteger("Estado",estado);
 	}
 
 	public void possessionSuccesful(bool isPlayer1){
+        anim.SetInteger("Estado", 0);
         if (nonbeliverTries == 0 && isPlayer1)
         {
+            SwitchMaterial(1);
             GameManager.instance.player1Score += 1;
             gameObject.layer = 13;//layer 13 is the layer of the player 1
             estado = 2;
         }
         else if(nonbeliverTries == 0 && !isPlayer1)
         {
+            SwitchMaterial(2);
             estado = 3;
             GameManager.instance.player2Score += 1;
             gameObject.layer = 12;//layer 12 is the layer of the player 2
@@ -111,6 +142,15 @@ public class NPC : MonoBehaviour {
 	}
 
 	public void possessionFailed(){
+        anim.SetInteger("Estado", 0);// go back an walk normal
         estado = prevState;
 	}
+
+    void SwitchMaterial(int index)
+    {
+        foreach (Renderer r in renderList)
+        {
+            r.material = materials[index];
+        }
+    }
 }

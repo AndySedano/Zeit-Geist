@@ -15,8 +15,19 @@ public class Spawner : MonoBehaviour {
     int totalRoom2;
     int currentRoom2;
 
+    private GameObject NpcHolder;
+
+
+
     // Use this for initialization
     void SpawnNpc () {
+
+        if (NpcHolder!=null)
+        {
+            Destroy(NpcHolder);
+        }
+        NpcHolder = new GameObject("NpcHolder");
+
         currentBigRoom = 0;
         currentRoom1 = 0;
         currentRoom2 = 0;
@@ -58,7 +69,8 @@ public class Spawner : MonoBehaviour {
 
     void SpawnNpcAt(Vector3 pos)
     {
-        Instantiate(npcPrefab,pos,Quaternion.identity);
+        GameObject npc = Instantiate(npcPrefab,pos,Quaternion.identity);
+        npc.transform.parent = NpcHolder.transform;
     }
 	
 	

@@ -127,7 +127,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4083210299584684}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -85.132034, y: 156.86475, z: -156.94843}
 --- !u!4 &4527684542302656
 Transform:
   m_ObjectHideFlags: 1
@@ -140,7 +140,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4083210299584684}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -87.3575, y: 45.92403, z: -46.11263}
 --- !u!4 &4596504722987596
 Transform:
   m_ObjectHideFlags: 1
@@ -153,7 +153,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4083210299584684}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -88.06791, y: 99.57062, z: -99.72331}
 --- !u!4 &4960864744954142
 Transform:
   m_ObjectHideFlags: 1
@@ -166,7 +166,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4083210299584684}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -88.06791, y: 99.57062, z: -99.72331}
 --- !u!23 &23199465401022432
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -344,7 +344,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!95 &95794482233295242
 Animator:
@@ -374,6 +374,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf9d5b8e7e0e46ab81e7d9c652971ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  materials:
+  - {fileID: 2100000, guid: dfa06ece5502a1b459b8df534abf8a10, type: 2}
+  - {fileID: 2100000, guid: 25611152831e65d40a724227effb0a7e, type: 2}
+  - {fileID: 2100000, guid: 3c17eec95128cd64b92a10d8f5233182, type: 2}
+  renderList:
+  - {fileID: 23199465401022432}
+  - {fileID: 23398685890897254}
+  - {fileID: 23253081285086850}
+  - {fileID: 23388450937639074}
 --- !u!136 &136400116559733256
 CapsuleCollider:
   m_ObjectHideFlags: 1

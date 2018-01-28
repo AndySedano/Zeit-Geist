@@ -99,7 +99,7 @@ public class Player : MonoBehaviour {
                 // controll the timer
                 timer -= Time.deltaTime;
             // only in this window of time the input of the possession button is read
-                if (Input.GetButtonDown("Possess1"))
+                if (Input.GetButtonUp("Possess1"))
                 {
                     tapAmount++;
                     canvasManager.Fill.fillAmount = tapAmount / totalTaps;
@@ -141,7 +141,7 @@ public class Player : MonoBehaviour {
             // controll the timer
             timer -= Time.deltaTime;
             // only in this window of time the input of the possession button is read
-            if (Input.GetButtonDown("Possess2"))
+            if (Input.GetButtonUp("Possess2"))
             {
                 tapAmount++;
                 canvasManager.Fill.fillAmount = tapAmount / totalTaps;
