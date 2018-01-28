@@ -92,14 +92,14 @@ public class NPC : MonoBehaviour {
         if (nonbeliverTries == 0 && isPlayer1)
         {
             GameManager.instance.player1Score += 1;
-            gameObject.layer = 8;//layer 8 is the layer of the player 1
+            gameObject.layer = 13;//layer 13 is the layer of the player 1
             estado = 2;
         }
         else if(nonbeliverTries == 0 && !isPlayer1)
         {
             estado = 3;
             GameManager.instance.player2Score += 1;
-            gameObject.layer = 9;//layer 9 is the layer of the player 2
+            gameObject.layer = 12;//layer 12 is the layer of the player 2
         }
         else
         {

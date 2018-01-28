@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4527684542302656}
   - component: {fileID: 33404646096038900}
   - component: {fileID: 23398685890897254}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cone_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4960864744954142}
   - component: {fileID: 33864457200723212}
   - component: {fileID: 23199465401022432}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,9 +54,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4083210299584684}
   - component: {fileID: 95794482233295242}
-  m_Layer: 0
+  - component: {fileID: 54015124305285738}
+  - component: {fileID: 136400116559733256}
+  - component: {fileID: 114055209793645940}
+  m_Layer: 11
   m_Name: NPC
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +74,7 @@ GameObject:
   - component: {fileID: 4403741706197326}
   - component: {fileID: 33103379542775908}
   - component: {fileID: 23253081285086850}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cone_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +91,7 @@ GameObject:
   - component: {fileID: 4596504722987596}
   - component: {fileID: 33936114438711450}
   - component: {fileID: 23388450937639074}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Icosphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,8 +105,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1188537198802188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 45.1, y: 0.8, z: -54.6}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4960864744954142}
   - {fileID: 4527684542302656}
@@ -328,6 +331,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1632013162323786}
   m_Mesh: {fileID: 4300002, guid: 5f85b052cddd5404d8c37d9940e10150, type: 3}
+--- !u!54 &54015124305285738
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1188537198802188}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!95 &95794482233295242
 Animator:
   serializedVersion: 3
@@ -345,3 +363,27 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114055209793645940
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1188537198802188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf9d5b8e7e0e46ab81e7d9c652971ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &136400116559733256
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1188537198802188}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 3.51
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.33, z: 0}
