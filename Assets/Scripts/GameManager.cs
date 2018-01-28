@@ -24,9 +24,10 @@ public class GameManager : MonoBehaviour {
 	public Spawner spawner;
 	public Button btnIniciar;
 	public Button btnContinuar;
-
 	public bool inGame = false;
+
 	private bool gameFinished = false;
+	private AudioSource[] audios;
 
 
 	//Awake is always called before any Start functions
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		audios = GetComponents<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -113,6 +115,8 @@ public class GameManager : MonoBehaviour {
 		loadNPCS ();
 		loadPlayers ();
 
+		StartCoroutine (fadeOut (audios[0], 2f));
+
 		//Espera dos segundos en lo que la camara se mueve y empieza
 		StartCoroutine (beginTimer ());
 	}
@@ -122,6 +126,7 @@ public class GameManager : MonoBehaviour {
 		yield return new WaitForSecondsRealtime (2);
 		loadPlayers ();
 		inGame = true;
+		audios [1].Play ();
 	}
 
 	//Salir del Juego
@@ -191,9 +196,6 @@ public class GameManager : MonoBehaviour {
 		timer.enabled = false;
 		Time.timeScale = 1;
 	}
-		
-
-
 
 
 	//Se muere todo
@@ -219,6 +221,24 @@ public class GameManager : MonoBehaviour {
 		loadPlayers ();
 		returnToMenu ();
 	}
+
+
+
+
+	public static IEnumerator fadeOut (AudioSource audioSource, float FadeTime) {
+		float startVolume = audioSource.volume;
+
+		while (audioSource.volume > 0) {
+			audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+
+			yield return null;
+		}
+
+		audioSource.Stop ();
+		audioSource.volume = startVolume;
+	}
+
+
 		
 
 
