@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerController))]
 public class Player : MonoBehaviour {
+    public CanvasManger canvasManager;
+
     // to call the npc and let them know which player is possesing them
     public bool isPlayer1;
 
@@ -24,10 +26,7 @@ public class Player : MonoBehaviour {
 
     //Target to start possession
     GameObject npcTarget;
-
-    //Minigame elements
-    public Image shadow;
-    public Image buttonHint;
+    
 
     float timer;
 
@@ -55,8 +54,8 @@ public class Player : MonoBehaviour {
         //disable it by using the alpha
 
         buttonHintAlpha = 0f;//because it begins hidden
-        buttonHint.color = new Color(buttonHint.color.r, buttonHint.color.g, buttonHint.color.b, buttonHintAlpha);
-        shadow.fillAmount = 0;
+        canvasManager.HideImages(0f);
+        canvasManager.Fill.fillAmount = 0;
     }
 
 
@@ -95,20 +94,20 @@ public class Player : MonoBehaviour {
         }
 
         // to begin the process of possession for player1
-        if (isPlayer1 && possessing && timer >0f && tapAmount >0)
+        if (isPlayer1 && possessing && timer >0f && tapAmount <totalTaps)
         {
                 // controll the timer
                 timer -= Time.deltaTime;
             // only in this window of time the input of the possession button is read
                 if (Input.GetButtonDown("Possess1"))
                 {
-                    tapAmount--;
-                    shadow.fillAmount = tapAmount / totalTaps;
+                    tapAmount++;
+                    canvasManager.Fill.fillAmount = tapAmount / totalTaps;
                 }
             
-        }else if (isPlayer1 && possessing && (timer <= 0f || tapAmount<=0))
+        }else if (isPlayer1 && possessing && (timer <= 0f || tapAmount>=totalTaps))
         {// when time is over or when the tap acount is reached the process finish
-            if (tapAmount <= 0)
+            if (tapAmount >= totalTaps)
             {
                 // only if the player reach the taps before the time runs out 
                 //the npc is possessed
@@ -137,21 +136,21 @@ public class Player : MonoBehaviour {
         }
 
         // to begin the process of possession for player1
-        if (!isPlayer1 && possessing && timer > 0f && tapAmount > 0)
+        if (!isPlayer1 && possessing && timer > 0f && tapAmount <totalTaps)
         {
             // controll the timer
             timer -= Time.deltaTime;
             // only in this window of time the input of the possession button is read
             if (Input.GetButtonDown("Possess2"))
             {
-                tapAmount--;
-                shadow.fillAmount = tapAmount / totalTaps;
+                tapAmount++;
+                canvasManager.Fill.fillAmount = tapAmount / totalTaps;
             }
 
         }
-        else if (!isPlayer1 && possessing && (timer <= 0f || tapAmount <= 0))
+        else if (!isPlayer1 && possessing && (timer <= 0f || tapAmount >=totalTaps))
         {// when time ran out or the player reched the tap acount the process finish
-            if (tapAmount <= 0)
+            if (tapAmount >=totalTaps)
             {
                 // only if the player reach the taps before the time runs out 
                 //the npc is possessed
@@ -174,7 +173,7 @@ public class Player : MonoBehaviour {
         if ((buttonHintAlpha>0 && buttonHintAlphaDirection==-1) || (buttonHintAlpha <1 && buttonHintAlphaDirection == 1))
         {
             buttonHintAlpha += Mathf.Clamp01(Time.deltaTime * (1f / 0.25f))*buttonHintAlphaDirection;
-            buttonHint.color = new Color(buttonHint.color.r, buttonHint.color.g, buttonHint.color.b, buttonHintAlpha);
+            canvasManager.HideImages(buttonHintAlpha);
         }
             
         
@@ -187,9 +186,9 @@ public class Player : MonoBehaviour {
         canMove = false;
         canPossess = false;
         possessing = true;
-        shadow.fillAmount = 1f;
+        canvasManager.Fill.fillAmount = 0f;
         timer = time;
-        tapAmount = taps;
+        tapAmount = 0;
         totalTaps = taps;
     }
 
@@ -198,7 +197,7 @@ public class Player : MonoBehaviour {
         canMove = true;
         canPossess = false;
         possessing = false;
-        shadow.fillAmount = 0f;
+        canvasManager.Fill.fillAmount = 0f;
         buttonHintAlphaDirection = -1;
     }
 

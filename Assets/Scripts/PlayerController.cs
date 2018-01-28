@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody rigidBody;
 
-
     // Use this for initialization
     void Start()
     {
