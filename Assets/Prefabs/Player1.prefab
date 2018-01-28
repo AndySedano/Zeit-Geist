@@ -272,8 +272,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1094937382621302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.554, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -3.554, y: 0.56, z: -52.4}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4888296119649226}
   m_Father: {fileID: 0}
@@ -696,7 +696,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasManager: {fileID: 114283293577729558}
   isPlayer1: 1
-  movespeed: 5
+  movespeed: 15
 --- !u!114 &114395051513890878
 MonoBehaviour:
   m_ObjectHideFlags: 1
